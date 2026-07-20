@@ -1,0 +1,470 @@
+[
+  {
+    "id": "script_a_ambiguous",
+    "category": "core_demo",
+    "text": "Starting college next month. Budget Rs 15,000. Need 3 oversized tees, 2 cargos, 2 jeans, 1 hoodie. Black/grey only. Delhi. Hostel.",
+    "expected": {
+      "gender": null,
+      "budget": 15000,
+      "colors": ["Black", "Grey"],
+      "colorMode": "strict",
+      "items": [
+        { "type": "oversized tee", "quantity": 3 },
+        { "type": "cargo pants", "quantity": 2 },
+        { "type": "jeans", "quantity": 2 },
+        { "type": "hoodie", "quantity": 1 }
+      ]
+    },
+    "notes": "Primary demo Script A, pre-clarifier. Gender must stay null here — this is what triggers the clarifying question, never a guess."
+  },
+  {
+    "id": "script_a_clarified",
+    "category": "core_demo",
+    "text": "Men's college wardrobe. Budget Rs 15,000. Need 3 oversized tees, 2 cargos, 2 jeans, 1 hoodie. Black/grey only.",
+    "expected": {
+      "gender": "Men",
+      "budget": 15000,
+      "colors": ["Black", "Grey"],
+      "colorMode": "strict",
+      "items": [
+        { "type": "oversized tee", "quantity": 3 },
+        { "type": "cargo pants", "quantity": 2 },
+        { "type": "jeans", "quantity": 2 },
+        { "type": "hoodie", "quantity": 1 }
+      ]
+    },
+    "notes": "Script A after the user answers the gender clarifier explicitly."
+  },
+  {
+    "id": "script_b_wedding",
+    "category": "core_demo",
+    "text": "Wedding to attend next month, want to look good, around 5k",
+    "expected": {
+      "gender": null,
+      "budget": 5000,
+      "colors": [],
+      "colorMode": "preference",
+      "items": null
+    },
+    "notes": "Script B. No literal garment word, so item extraction is out of scope for this text (occasion-based synthesis happens downstream of the parser, after gender is clarified)."
+  },
+  {
+    "id": "script_c_impossible_budget",
+    "category": "impossible_budget",
+    "text": "5 outfits under Rs 3,000",
+    "expected": {
+      "gender": null,
+      "budget": 3000,
+      "colors": [],
+      "colorMode": "preference",
+      "items": null
+    },
+    "notes": "Script C — honesty-under-impossible-budget. \"outfits\" is not a garment word, so raw item extraction is empty by design; the shortfall has to be handled downstream, not invented here."
+  },
+  {
+    "id": "hinglish_brother_kurta",
+    "category": "hinglish",
+    "text": "Mera bhai ke liye 2 kurta aur 1 jeans chahiye, budget 4000 rupees, black colour mein",
+    "expected": {
+      "gender": null,
+      "budget": 4000,
+      "colors": ["Black"],
+      "colorMode": "strict",
+      "items": [
+        { "type": "kurta", "quantity": 2 },
+        { "type": "jeans", "quantity": 1 }
+      ]
+    },
+    "knownLimitation": "\"Mera bhai ke liye\" (Hindi for \"for my brother\") does not match the English-only relational-phrase regex, so gender stays unknown even though a human reader would say Men. The system's fallback here is to ask, which is safe, but it's a real code-mixed-language gap worth closing before a Hindi-heavy demo.",
+    "notes": "Budget and items extract correctly despite the code-mixed sentence — only the relational gender phrase is missed."
+  },
+  {
+    "id": "hinglish_sister_lehenga",
+    "category": "hinglish",
+    "text": "Meri behen ki shaadi hai, lehenga chahiye, budget around 20000",
+    "expected": {
+      "gender": "Women",
+      "budget": 20000,
+      "colors": [],
+      "colorMode": "preference",
+      "items": [
+        { "type": "lehenga", "quantity": 1 }
+      ]
+    },
+    "notes": "Contrast case to hinglish_brother_kurta: \"lehenga\" is a contextual gender signal that fires correctly even in a code-mixed sentence, because it's matched as a garment word, not a relational phrase."
+  },
+  {
+    "id": "contradictory_gender_signals",
+    "category": "contradictory",
+    "text": "Buying this for my girlfriend but I also want some men's jeans for myself, budget 8000",
+    "expected": {
+      "gender": null,
+      "budget": 8000,
+      "colors": [],
+      "colorMode": "preference",
+      "items": [
+        { "type": "jeans", "quantity": 1 }
+      ]
+    },
+    "notes": "Both male and female signals present in the same sentence. Correct behavior is to refuse to guess and stay unknown, not silently pick one — this is the invariant under test, not a bug."
+  },
+  {
+    "id": "impossible_budget_lehenga_set",
+    "category": "impossible_budget",
+    "text": "Need a complete wedding lehenga set with jewellery under 2000 rupees",
+    "expected": {
+      "gender": "Women",
+      "budget": 2000,
+      "colors": [],
+      "colorMode": "preference",
+      "items": [
+        { "type": "lehenga", "quantity": 1 }
+      ]
+    },
+    "notes": "A realistically impossible budget for the requested item — good input for Script C-style honesty handling downstream."
+  },
+  {
+    "id": "clean_new_job_formals",
+    "category": "clean",
+    "text": "Starting my first job next week. Need 3 formal shirts, 2 formal trousers, 1 blazer. Budget 12000. Prefer navy and white.",
+    "expected": {
+      "gender": null,
+      "budget": 12000,
+      "colors": ["Navy Blue", "White"],
+      "colorMode": "preference",
+      "items": [
+        { "type": "shirt", "quantity": 3 }
+      ]
+    },
+    "knownLimitation": "\"trousers\" and \"blazer\" are not in the recognized garment-type list, so they're silently dropped rather than extracted. Worth adding before a first-job demo script.",
+    "notes": "Shirt, budget, colors, and preference-mode all extract correctly; only the two unmapped garment words are missed."
+  },
+  {
+    "id": "clean_monsoon",
+    "category": "clean",
+    "text": "Monsoon essentials for Delhi. Need 2 raincoats and 1 pair of waterproof shoes. Budget 3500.",
+    "expected": {
+      "gender": null,
+      "budget": 3500,
+      "colors": [],
+      "colorMode": "preference",
+      "items": [
+        { "type": "shoes", "quantity": 1 }
+      ]
+    },
+    "knownLimitation": "\"raincoat\" is not a recognized garment type. The stated quantity for shoes (\"1 pair\") also isn't adjacent to the word \"shoes\" in the text, so quantity defaults to 1 rather than being read from \"pair\" — coincidentally correct here, not by design.",
+    "notes": ""
+  },
+  {
+    "id": "clean_gym",
+    "category": "clean",
+    "text": "Building a gym wardrobe. Need 4 tshirts, 3 joggers, 2 shorts. Budget 6000. Black and grey only, easy wash.",
+    "expected": {
+      "gender": null,
+      "budget": 6000,
+      "colors": ["Black", "Grey"],
+      "colorMode": "strict",
+      "items": [
+        { "type": "oversized tee", "quantity": 4 },
+        { "type": "joggers", "quantity": 3 }
+      ]
+    },
+    "knownLimitation": "\"shorts\" is not a recognized garment type and is silently dropped.",
+    "notes": ""
+  },
+  {
+    "id": "clean_festive_men",
+    "category": "clean",
+    "text": "Diwali outfit for my dad. Need 1 kurta and 1 pair of mojaris. Budget 5000.",
+    "expected": {
+      "gender": "Men",
+      "budget": 5000,
+      "colors": [],
+      "colorMode": "preference",
+      "items": [
+        { "type": "kurta", "quantity": 1 }
+      ]
+    },
+    "knownLimitation": "\"mojaris\" (traditional footwear) is not a recognized garment type.",
+    "notes": "Contrast case to hinglish_brother_kurta: the SAME relational phrase (\"for my dad\") correctly resolves to Men when written in English, confirming the gap is code-mixed language, not the relational pattern itself."
+  },
+  {
+    "id": "adversarial_garbled",
+    "category": "adversarial",
+    "text": "asdkjasnd kjasnd askjdn aksjdn",
+    "expected": {
+      "gender": null,
+      "budget": null,
+      "colors": [],
+      "colorMode": "preference",
+      "items": []
+    },
+    "notes": "Nonsense input. The parser correctly extracts nothing rather than inventing a plan; a separate content-sufficiency check in the /agent/plan route (not exercised by this harness) catches this class of input before it ever reaches the parser in production."
+  },
+  {
+    "id": "adversarial_no_budget_number",
+    "category": "adversarial",
+    "text": "I need a wardrobe but I'm not sure about my budget yet",
+    "expected": {
+      "gender": null,
+      "budget": null,
+      "colors": [],
+      "colorMode": "preference",
+      "items": []
+    },
+    "notes": "The word \"budget\" is present but no digits follow it — correctly returns null rather than a fabricated number."
+  },
+  {
+    "id": "multi_gender_neutral_college",
+    "category": "clean",
+    "text": "College wardrobe under 15000, need tees and jeans, black or navy",
+    "expected": {
+      "gender": null,
+      "budget": 15000,
+      "colors": ["Black", "Navy Blue"],
+      "colorMode": "strict",
+      "items": [
+        { "type": "oversized tee", "quantity": 1 },
+        { "type": "jeans", "quantity": 1 }
+      ]
+    },
+    "knownLimitation": "\"black or navy\" (either) and \"black and navy\" (both) currently produce the same strict colour set — the parser can't distinguish an either/or preference from a combined strict palette.",
+    "notes": ""
+  },
+  {
+    "id": "hinglish_word_numbers",
+    "category": "hinglish",
+    "text": "Mujhe teen jeans chahiye aur ek jacket bhi, budget pandrah hazaar rupees",
+    "expected": {
+      "gender": null,
+      "budget": null,
+      "colors": [],
+      "colorMode": "preference",
+      "items": [
+        { "type": "jeans", "quantity": 1 },
+        { "type": "jacket", "quantity": 1 }
+      ]
+    },
+    "knownLimitation": "Quantities and budget spelled as words in Hindi (\"teen\" = 3, \"pandrah hazaar\" = 15,000) are not parsed — only numerals are recognized. Both quantities default to 1 and budget is missed entirely. This is the single highest-value fix for a Hindi-heavy demo audience.",
+    "notes": ""
+  },
+  {
+    "id": "clean_women_ethnic",
+    "category": "clean",
+    "text": "Need 2 sarees and 1 blouse for a family function, women's wear, budget 10000, prefer maroon and gold",
+    "expected": {
+      "gender": "Women",
+      "budget": 10000,
+      "colors": ["Maroon", "Gold"],
+      "colorMode": "preference",
+      "items": [
+        { "type": "saree", "quantity": 2 }
+      ]
+    },
+    "knownLimitation": "\"blouse\" is not a recognized garment type.",
+    "notes": ""
+  },
+  {
+    "id": "clean_winter",
+    "category": "clean",
+    "text": "Winter wardrobe for Shimla trip. Need 2 jackets and 1 hoodie. Budget 7000. Dark colours only.",
+    "expected": {
+      "gender": null,
+      "budget": 7000,
+      "colors": [],
+      "colorMode": "preference",
+      "items": [
+        { "type": "jacket", "quantity": 2 },
+        { "type": "hoodie", "quantity": 1 }
+      ]
+    },
+    "knownLimitation": "\"Dark colours only\" names no specific recognized colour word (\"dark\" isn't in the colour vocabulary), so colorMode falls back to \"preference\" even though the user clearly meant a strict constraint. A stated colour is required for strict mode to engage at all.",
+    "notes": "This is the most important known gap in the whole set — a user can say \"only\" and still not get strict enforcement if they never name a literal colour."
+  },
+  {
+    "id": "adversarial_qty_after_noun",
+    "category": "adversarial",
+    "text": "Just need sneakers, 2 pairs, under 3000, any color",
+    "expected": {
+      "gender": null,
+      "budget": 3000,
+      "colors": [],
+      "colorMode": "preference",
+      "items": [
+        { "type": "shoes", "quantity": 1 }
+      ]
+    },
+    "knownLimitation": "The quantity \"2 pairs\" is stated after the noun, not immediately before it, so it isn't picked up — quantity defaults to 1 instead of 2.",
+    "notes": ""
+  },
+  {
+    "id": "contradictory_budget_stretch",
+    "category": "contradictory",
+    "text": "Budget is 5000 but honestly I can stretch to 8000 if needed, need 2 shirts",
+    "expected": {
+      "gender": null,
+      "budget": 5000,
+      "colors": [],
+      "colorMode": "preference",
+      "items": [
+        { "type": "shirt", "quantity": 2 }
+      ]
+    },
+    "notes": "By design, the extractor takes the first stated figure (the stated budget) over a later stretch-goal mention — the stretch amount is a downstream negotiation input, not the primary budget."
+  },
+  {
+    "id": "clean_couple_mixed",
+    "category": "clean",
+    "text": "Need matching outfits for me and my girlfriend, 1 dress for her and 1 shirt for me, budget 6000",
+    "expected": {
+      "gender": "Women",
+      "budget": 6000,
+      "colors": [],
+      "colorMode": "preference",
+      "items": [
+        { "type": "dress", "quantity": 1 },
+        { "type": "shirt", "quantity": 1 }
+      ]
+    },
+    "notes": "By design, gender is a single plan-level field, never per item (CLAUDE.md Section 18) — \"girlfriend\" is the only relational signal present, so the whole plan resolves to Women even though a shirt for a man was also requested. This is the correct, intended behavior for the current architecture, not a bug; a genuinely mixed-gender cart needs two separate goals."
+  },
+  {
+    "id": "impossible_budget_office_ten",
+    "category": "impossible_budget",
+    "text": "10 complete formal outfits for office, budget 5000 total",
+    "expected": {
+      "gender": null,
+      "budget": 5000,
+      "colors": [],
+      "colorMode": "preference",
+      "items": null
+    },
+    "notes": "Another impossible-budget honesty case, phrased differently from Script C — no literal garment word, so item extraction is correctly empty here."
+  },
+  {
+    "id": "clean_diwali_family",
+    "category": "clean",
+    "text": "Festive wear for the whole family, need 3 kurtas, budget 9000, prefer gold and maroon tones",
+    "expected": {
+      "gender": null,
+      "budget": 9000,
+      "colors": ["Gold", "Maroon"],
+      "colorMode": "preference",
+      "items": [
+        { "type": "kurta", "quantity": 3 }
+      ]
+    },
+    "notes": "\"Whole family\" and \"kurtas\" alone don't imply a single gender — correctly stays unknown."
+  },
+  {
+    "id": "hinglish_office_word_number",
+    "category": "hinglish",
+    "text": "Office ke liye formal shirts chahiye, 3 chahiye, budget fifteen thousand",
+    "expected": {
+      "gender": null,
+      "budget": null,
+      "colors": [],
+      "colorMode": "preference",
+      "items": [
+        { "type": "shirt", "quantity": 1 }
+      ]
+    },
+    "knownLimitation": "\"fifteen thousand\" spelled in English words is not parsed as a number, and the quantity \"3\" is stated separately from \"shirts\" so it isn't captured either — same class of gap as hinglish_word_numbers, this time in English.",
+    "notes": ""
+  },
+  {
+    "id": "clean_minimalist_capsule",
+    "category": "clean",
+    "text": "Minimalist capsule wardrobe. 2 white shirts, 2 black jeans, 1 grey hoodie. Budget 11000.",
+    "expected": {
+      "gender": null,
+      "budget": 11000,
+      "colors": ["White", "Black", "Grey"],
+      "colorMode": "strict",
+      "items": [
+        { "type": "shirt", "quantity": 2 },
+        { "type": "jeans", "quantity": 2 },
+        { "type": "hoodie", "quantity": 1 }
+      ]
+    },
+    "notes": "No explicit \"only\"/\"prefer\" word, so colorMode defaults to strict since colours were named — a deliberately conservative default (safer to over-constrain colour than under-constrain it)."
+  },
+  {
+    "id": "adversarial_no_currency_no_keyword",
+    "category": "adversarial",
+    "text": "I only want to spend 4000 on 2 tshirts, nothing fancy",
+    "expected": {
+      "gender": null,
+      "budget": null,
+      "colors": [],
+      "colorMode": "preference",
+      "items": [
+        { "type": "oversized tee", "quantity": 2 }
+      ]
+    },
+    "knownLimitation": "\"spend 4000\" has neither a currency symbol (Rs/₹) nor one of the recognized lead-in keywords (budget/around/under/for/within) directly adjacent to the number, so it's missed entirely despite being an unambiguous budget statement to a human reader. This is the most important budget-extraction gap in the set.",
+    "notes": ""
+  },
+  {
+    "id": "clean_rainy_day_relaxed",
+    "category": "clean",
+    "text": "Something comfortable for rainy days in Mumbai, 2 hoodies and 1 pair of joggers, budget 4500, olive or black",
+    "expected": {
+      "gender": null,
+      "budget": 4500,
+      "colors": ["Olive", "Black"],
+      "colorMode": "strict",
+      "items": [
+        { "type": "hoodie", "quantity": 2 },
+        { "type": "joggers", "quantity": 1 }
+      ]
+    },
+    "notes": ""
+  },
+  {
+    "id": "clean_denim_reset",
+    "category": "clean",
+    "text": "Denim reset — 3 jeans, all dark wash, budget around 9000, no ripped styles",
+    "expected": {
+      "gender": null,
+      "budget": 9000,
+      "colors": [],
+      "colorMode": "preference",
+      "items": [
+        { "type": "jeans", "quantity": 3 }
+      ]
+    },
+    "notes": "\"Dark wash\" is a denim finish, not a recognized colour word, so colours correctly stay empty rather than guessing a hue."
+  },
+  {
+    "id": "adversarial_all_caps",
+    "category": "adversarial",
+    "text": "URGENT!!! NEED 2 BLACK HOODIES BUDGET 3000 ASAP!!!",
+    "expected": {
+      "gender": null,
+      "budget": 3000,
+      "colors": ["Black"],
+      "colorMode": "strict",
+      "items": [
+        { "type": "hoodie", "quantity": 2 }
+      ]
+    },
+    "notes": "Confirms case-insensitivity holds under all-caps, exclamation-heavy input."
+  },
+  {
+    "id": "clean_two_events_mixed",
+    "category": "clean",
+    "text": "I need 1 saree for my cousin's sangeet and 2 kurtas for daytime functions, total budget 18000, gold and pink shades",
+    "expected": {
+      "gender": "Women",
+      "budget": 18000,
+      "colors": ["Gold", "Pink"],
+      "colorMode": "strict",
+      "items": [
+        { "type": "saree", "quantity": 1 },
+        { "type": "kurta", "quantity": 2 }
+      ]
+    },
+    "notes": "\"Total budget\" is correctly read past the word \"total\" to the keyword+number pattern."
+  }
+]

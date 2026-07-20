@@ -1,0 +1,442 @@
+.demo-page-container {
+  min-height: 100vh;
+  background-color: #f5f5f6;
+  color: #282c3f;
+  padding: 40px 5%;
+  font-family: 'Inter', -apple-system, sans-serif;
+  overflow-y: auto;
+}
+
+.demo-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.autopilot-launch-btn {
+  margin-top: 24px;
+  background: #ff3f6c;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 16px 36px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(255, 63, 108, 0.3);
+  letter-spacing: -0.01em;
+}
+
+.autopilot-launch-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: #e62e5b;
+  box-shadow: 0 6px 25px rgba(255, 63, 108, 0.45);
+}
+
+.autopilot-launch-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.demo-badge {
+  display: inline-block;
+  background: #282c3f;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 50px;
+  letter-spacing: 0.15em;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.demo-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #282c3f;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.demo-subtitle {
+  font-size: 1.1rem;
+  color: #535766;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .demo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Timeline Section */
+.demo-timeline-section {
+  background: #fff;
+  border: 1px solid #eaeaec;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.section-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.dot-glowing {
+  width: 10px;
+  height: 10px;
+  background-color: #ff3f6c;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ff3f6c;
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.5; }
+}
+
+.section-title-wrap h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #282c3f;
+  margin: 0;
+}
+
+.timeline-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.timeline-step-card {
+  background: #fafafb;
+  border: 1px solid #eaeaec;
+  border-radius: 14px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.timeline-step-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: transparent;
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.timeline-step-card:hover {
+  background: #f0f0f2;
+  border-color: #d4d4d9;
+  transform: translateY(-2px);
+}
+
+.timeline-step-card.active {
+  background: #fff;
+  border-color: #ff3f6c;
+  box-shadow: 0 6px 20px rgba(255, 63, 108, 0.12);
+}
+
+.timeline-step-card.active::before {
+  background: #ff3f6c;
+}
+
+.timeline-badge-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.time-badge {
+  background: rgba(255, 63, 108, 0.08);
+  color: #ff3f6c;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 63, 108, 0.15);
+}
+
+.step-number {
+  color: #9496a2;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.timeline-step-card h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #282c3f;
+  margin: 0 0 8px 0;
+}
+
+.timeline-step-card p {
+  font-size: 0.9rem;
+  color: #535766;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.timeline-bullets-expand {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid #eaeaec;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.script-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ff9f00;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.timeline-bullets-expand ul {
+  margin: 0 0 20px 0;
+  padding-left: 20px;
+}
+
+.timeline-bullets-expand li {
+  font-size: 0.85rem;
+  color: #535766;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.seed-btn {
+  width: 100%;
+  background: #ff3f6c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(255, 63, 108, 0.2);
+}
+
+.seed-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #e62e5b;
+  box-shadow: 0 6px 15px rgba(255, 63, 108, 0.3);
+}
+
+.seed-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Right Side Cards */
+.demo-visualizer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.visualizer-card, .metrics-card, .tech-specs-card {
+  background: #fff;
+  border: 1px solid #eaeaec;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.visualizer-card h2, .metrics-card h2, .tech-specs-card h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #282c3f;
+  margin: 0 0 20px 0;
+  letter-spacing: -0.01em;
+}
+
+/* Flow Diagram */
+.flow-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 30px 0;
+  background: #fafafb;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #eaeaec;
+}
+
+@media (max-width: 600px) {
+  .flow-diagram {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .flow-arrow {
+    transform: rotate(90deg);
+  }
+}
+
+.flow-node {
+  background: #fff;
+  border: 1px solid #d4d4d9;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  flex: 1;
+  max-width: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.flow-node-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #282c3f;
+}
+
+.flow-node-sub {
+  font-size: 0.7rem;
+  color: #9496a2;
+}
+
+.flow-node.highlight {
+  background: rgba(255, 63, 108, 0.08);
+  border-color: #ff3f6c;
+  box-shadow: 0 0 15px rgba(255, 63, 108, 0.15);
+}
+
+.flow-node.highlight .flow-node-title {
+  color: #ff3f6c;
+}
+
+.flow-node.success {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: #10b981;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+}
+
+.flow-node.success .flow-node-title {
+  color: #10b981;
+}
+
+.flow-arrow {
+  color: #9496a2;
+  font-size: 1.1rem;
+}
+
+.flow-caption {
+  font-size: 0.8rem;
+  color: #6b7280;
+  text-align: center;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.metric-box {
+  background: #fafafb;
+  border: 1px solid #eaeaec;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Opportunity = the upside StyleOS captures; problem = the scale of what
+   it's fixing — different framing deserves a different accent, not one
+   flat "this number is good" green for both. */
+.metric-value.opportunity { color: #10b981; }
+.metric-value.problem { color: #dc2626; }
+
+.metric-lbl {
+  font-size: 0.72rem;
+  color: #535766;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.metric-src {
+  font-size: 0.65rem;
+  color: #a4a8b3;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.metrics-sources {
+  font-size: 0.7rem;
+  color: #9199a8;
+  line-height: 1.5;
+  text-align: center;
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid #eaeaec;
+}
+
+/* Specs */
+.tech-specs-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.spec-item {
+  font-size: 0.85rem;
+  color: #535766;
+  line-height: 1.5;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eaeaec;
+}
+
+.spec-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.spec-item strong {
+  color: #282c3f;
+  display: block;
+  margin-bottom: 4px;
+}

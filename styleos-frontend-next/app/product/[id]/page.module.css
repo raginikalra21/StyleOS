@@ -1,0 +1,121 @@
+.page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+@media (max-width: 720px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+}
+
+.brand {
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+.title {
+  font-size: 1.3rem;
+  color: var(--ink);
+  margin: 4px 0 12px;
+  font-weight: 500;
+}
+.ratingRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.ratingBadge {
+  background: var(--ok);
+  color: var(--bg);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.ratingCount {
+  font-size: 0.82rem;
+  color: var(--ink-3);
+}
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.price {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.mrp {
+  font-size: 1rem;
+  color: var(--ink-3);
+  text-decoration: line-through;
+}
+.discount {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ok);
+}
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.tag {
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  color: var(--ink-2);
+}
+.sizes {
+  margin-bottom: 20px;
+}
+.sizesLabel {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink-2);
+  margin-bottom: 8px;
+}
+.sizeRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.sizeChip {
+  border: 1.5px solid var(--line);
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  color: var(--ink);
+}
+.description {
+  color: var(--ink-2);
+  line-height: 1.6;
+  font-size: 0.92rem;
+  margin-bottom: 24px;
+}
+.addBtn {
+  width: 100%;
+  background: var(--pink);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 14px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.addBtn:disabled {
+  background: var(--line);
+  color: var(--ink-3);
+  cursor: not-allowed;
+}

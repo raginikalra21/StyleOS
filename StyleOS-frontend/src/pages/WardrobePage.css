@@ -1,0 +1,15 @@
+.wardrobe-page { max-width: 680px; margin: 0 auto; padding: 32px 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.wardrobe-loading { text-align: center; padding: 60px; color: var(--ink-3); }
+.wardrobe-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.wardrobe-header h1 { margin: 0; font-size: 1.5rem; color: var(--ink); }
+.new-wardrobe-btn { background: var(--pink); color: white; text-decoration: none; padding: 9px 18px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; }
+.wardrobe-empty { text-align: center; padding: 60px 20px; color: var(--ink-3); }
+.wardrobe-empty span { font-size: 3rem; }
+.wardrobe-empty p { margin: 8px 0; }
+.wardrobe-empty a { color: var(--pink); text-decoration: none; font-weight: 600; }
+.wardrobe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+.wardrobe-card { background: white; border: 1.5px solid var(--line-2); border-radius: 12px; padding: 20px; text-decoration: none; color: inherit; text-align: center; transition: border-color 0.15s, box-shadow 0.15s; }
+.wardrobe-card:hover { border-color: var(--pink); box-shadow: 0 2px 12px rgba(255,63,108,0.1); }
+.wardrobe-icon { font-size: 2.5rem; margin-bottom: 8px; }
+.wardrobe-card h3 { margin: 0 0 6px; font-size: 0.95rem; color: var(--ink); }
+.wardrobe-card p { margin: 0; font-size: 0.82rem; color: var(--ink-3); }

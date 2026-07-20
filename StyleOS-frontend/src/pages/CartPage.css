@@ -1,0 +1,94 @@
+.cart-page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 24px 20px 120px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.cart-loading { text-align: center; padding: 60px; color: var(--ink-3); }
+.back-btn { background: none; border: none; cursor: pointer; font-size: 0.95rem; color: var(--pink); padding: 0; }
+.cart-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.cart-header h1 { flex: 1; margin: 0; font-size: 1.3rem; color: var(--ink); }
+.cart-total { font-size: 1.1rem; font-weight: 700; color: var(--pink); }
+.cart-goal { background: var(--bg)8e1; border-left: 3px solid var(--warn); padding: 10px 14px; border-radius: 6px; font-size: 0.85rem; color: var(--ink-2); margin-bottom: 20px; }
+
+.cart-items { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+.cart-item { display: flex; gap: 14px; background: white; border: 1px solid var(--line-2); border-radius: 12px; padding: 14px; position: relative; }
+.item-image { width: 80px; height: 100px; border-radius: 8px; overflow: hidden; background: var(--bg-3); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.item-image img { width: 100%; height: 100%; object-fit: cover; }
+.item-placeholder { font-size: 2rem; }
+.item-info { flex: 1; }
+.item-brand { margin: 0 0 2px; font-size: 0.75rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.04em; }
+.item-title { margin: 0 0 6px; font-size: 0.9rem; color: var(--ink); font-weight: 500; line-height: 1.3; }
+.item-meta { display: flex; gap: 6px; font-size: 0.78rem; color: var(--ink-3); flex-wrap: wrap; margin-bottom: 6px; }
+.item-price { margin: 0; font-size: 1rem; font-weight: 700; color: var(--pink); }
+.remove-btn { position: absolute; top: 10px; right: 10px; background: none; border: none; color: var(--line); cursor: pointer; font-size: 1rem; }
+.remove-btn:hover { color: var(--pink); }
+
+.cart-actions { position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg); border-top: 1px solid var(--line-2); padding: 16px 20px; display: flex; flex-direction: column; gap: 10px; max-width: 680px; margin: 0 auto; max-height: 80vh; overflow-y: auto; }
+.cart-summary { display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--ink-2); }
+.total-price { font-weight: 700; color: var(--ink); }
+.btn-share { background: var(--whatsapp); color: var(--bg); border: none; border-radius: 10px; padding: 13px; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
+.btn-collab {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  color: #fff; border: none; border-radius: 10px; padding: 14px;
+  font-size: 0.98rem; font-weight: 700; cursor: pointer;
+  box-shadow: 0 3px 10px rgba(236, 72, 153, 0.3);
+}
+.btn-approve { background: var(--pink); color: var(--bg); border: none; border-radius: 10px; padding: 13px; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
+
+/* Five Modes — "who am I asking, and why" (collab_cart_five_modes.md) */
+.mode-picker { display: flex; flex-direction: column; gap: 8px; }
+.mode-picker-label { font-size: 0.85rem; font-weight: 700; color: var(--ink); margin: 0 0 2px; }
+.mode-option {
+  display: flex; align-items: center; gap: 10px; text-align: left;
+  background: var(--bg-3); border: 1.5px solid var(--line); border-radius: 10px;
+  padding: 10px 12px; cursor: pointer; transition: border-color 0.15s, background 0.15s;
+}
+.mode-option:hover { border-color: var(--pink); }
+.mode-option-active { border-color: var(--pink); background: var(--pink-tint); }
+.mode-emoji { font-size: 1.3rem; flex-shrink: 0; }
+.mode-text { display: flex; flex-direction: column; }
+.mode-label { font-weight: 700; font-size: 0.88rem; color: var(--ink); }
+.mode-sub { font-size: 0.76rem; color: var(--ink-3); }
+.proxy-fields { display: flex; flex-direction: column; gap: 8px; margin: 4px 0; }
+.proxy-fields input {
+  border: 1.5px solid var(--line); border-radius: 8px; padding: 10px 12px;
+  font-size: 0.88rem; outline: none;
+}
+.proxy-fields input:focus { border-color: var(--pink); }
+.btn-approve:disabled { background: var(--line); cursor: not-allowed; }
+.cart-approved-banner {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--ok-tint); border: 1.5px solid var(--ok); border-radius: 10px;
+  padding: 12px 14px; animation: approvedIn 0.35s ease;
+}
+@keyframes approvedIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+.cart-approved-check { font-size: 1.4rem; }
+.cart-approved-title { margin: 0; font-weight: 700; color: var(--ok); font-size: 0.95rem; }
+.cart-approved-sub { margin: 2px 0 0; font-size: 0.8rem; color: var(--ok); }
+.cart-lookbook-btn {
+  background: var(--ok); color: var(--bg); border: none; border-radius: 8px;
+  padding: 9px 14px; font-weight: 700; font-size: 0.8rem; cursor: pointer;
+  white-space: nowrap; margin-left: auto;
+}
+.share-link-row { display: flex; gap: 8px; }
+.share-link-row input { flex: 1; border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; font-size: 0.82rem; }
+.share-link-row button { background: var(--pink); color: white; border: none; border-radius: 6px; padding: 8px 14px; cursor: pointer; font-size: 0.82rem; }
+
+/* "Session stays live for" — Collab Cart Complete Session UX Spec §1 */
+.duration-picker { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 4px; }
+.duration-option {
+  background: var(--bg-3); border: 1.5px solid var(--line); border-radius: 16px;
+  padding: 6px 12px; font-size: 0.78rem; font-weight: 600; color: var(--ink-2); cursor: pointer;
+}
+.duration-option-active { border-color: var(--pink); background: var(--pink-tint); color: var(--pink); }
+
+/* "How should they join?" — WhatsApp / copy link / QR */
+.share-method-row { display: flex; gap: 8px; }
+.share-method-btn {
+  flex: 1; background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px;
+  padding: 10px 8px; font-size: 0.82rem; font-weight: 600; color: var(--ink); cursor: pointer;
+}
+.share-method-btn:hover { border-color: var(--pink); }
+.live-session-share { display: flex; flex-direction: column; gap: 10px; }
+.share-qr-thumb { width: 64px; height: 64px; border-radius: 8px; border: 1px solid var(--line); flex-shrink: 0; }

@@ -1,0 +1,224 @@
+/* ── Budget strip (Page 26/23) ──────────────────────────────────────────── */
+.budget-strip {
+  position: sticky; top: 0; z-index: 5;
+  background: var(--bg); border: 1px solid var(--line-2); border-radius: 14px;
+  padding: 12px 16px; margin-bottom: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+.budget-strip-row { display: flex; justify-content: center; gap: 10px; color: var(--ink-3); font-size: 0.95rem; }
+.budget-strip-row strong { color: var(--ink); }
+.dot { color: var(--line); }
+.budget-total.budget-under strong { color: var(--ok); }
+.budget-total.budget-near strong { color: var(--warn); }
+.budget-total.budget-over strong { color: var(--err); }
+.budget-bar-track { height: 6px; background: var(--line-2); border-radius: 999px; margin-top: 10px; overflow: hidden; }
+.budget-bar-fill { height: 100%; border-radius: 999px; transition: width 0.5s ease; }
+.budget-bar-fill.budget-bar-under { background: var(--ok); }
+.budget-bar-fill.budget-bar-near { background: var(--warn); }
+.budget-bar-fill.budget-bar-over { background: var(--err); }
+
+/* ── Outfit groups + carousels (Page 24/26/27) ──────────────────────────── */
+.outfit-groups-section { margin: 20px 0; }
+.outfit-group {
+  margin-bottom: 20px;
+  animation: outfitStagger 0.4s ease both;
+}
+@keyframes outfitStagger { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.outfit-group-name { font-size: 0.95rem; font-weight: 700; color: var(--ink); margin: 0 0 10px; }
+
+.product-carousel {
+  display: flex; gap: 12px; overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+.product-carousel::-webkit-scrollbar { height: 4px; }
+.product-carousel::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 4px; }
+.carousel-item { flex: 0 0 150px; scroll-snap-align: start; }
+
+/* ── Product card (Page 27) ─────────────────────────────────────────────── */
+.agent-product-card {
+  display: block; width: 100%; text-align: left;
+  background: var(--bg); border: 1px solid var(--line-2); border-radius: 12px;
+  overflow: hidden; cursor: pointer; padding: 0;
+  font-family: inherit;
+  animation: cardEnter 0.35s ease both;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.agent-product-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.08); }
+.agent-product-card:active { transform: scale(0.98); }
+@keyframes cardEnter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.apc-image-wrap { width: 100%; aspect-ratio: 3 / 4; background: var(--bg-3); overflow: hidden; }
+.apc-image-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.apc-noimg { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 2rem; background: var(--line-2); }
+
+.apc-info { padding: 8px 10px 10px; }
+.apc-brand { font-size: 0.68rem; font-weight: 700; color: var(--ink-3); text-transform: uppercase; margin: 0 0 2px; }
+.apc-title {
+  font-size: 0.8rem; color: var(--ink); margin: 0 0 4px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.apc-price-row { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.apc-price { font-size: 0.9rem; font-weight: 700; color: var(--pink); }
+.apc-mrp { font-size: 0.75rem; color: var(--ink-3); text-decoration: line-through; }
+.apc-discount { font-size: 0.7rem; color: var(--ok); font-weight: 600; }
+.apc-why-tag {
+  display: inline-block; margin-top: 6px; font-size: 0.65rem; color: var(--accent);
+  background: var(--accent-tint-2); border-radius: 999px; padding: 3px 8px;
+}
+.agent-product-card.card-pulse { animation: cardPulse2 0.9s ease; }
+@keyframes cardPulse2 {
+  0% { box-shadow: 0 0 0 rgba(255,63,108,0); }
+  30% { box-shadow: 0 0 0 6px rgba(255,63,108,0.15); }
+  100% { box-shadow: 0 0 0 rgba(255,63,108,0); }
+}
+.agent-product-card.card-exit { opacity: 0; transform: scale(0.85); transition: opacity 0.3s ease, transform 0.3s ease; }
+
+/* ── Full haul grid (Page 26) ───────────────────────────────────────────── */
+.full-haul-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 12px 0 20px;
+}
+@media (min-width: 480px) {
+  .full-haul-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ── Grounded copy badge (Page 25) ──────────────────────────────────────── */
+.grounded-copy-badge {
+  display: inline-block; margin-top: 6px; font-size: 0.7rem; font-weight: 600;
+  color: var(--ok); background: var(--ok-tint); border-radius: 999px; padding: 3px 9px;
+}
+
+/* ── Follow-up chips (Page 26) ──────────────────────────────────────────── */
+.followup-chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0; }
+.followup-chip {
+  border: 1px solid var(--pink); background: var(--bg); color: var(--pink);
+  border-radius: 999px; padding: 8px 14px; font-size: 0.82rem; font-weight: 600; cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.followup-chip:hover { background: var(--pink); color: var(--bg); }
+
+/* ── Product Sheet bottom sheet (Page 28) ───────────────────────────────── */
+.product-sheet-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 50;
+  display: flex; align-items: flex-end; justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+.product-sheet {
+  width: 100%; max-width: 480px; max-height: 88vh; overflow-y: auto;
+  background: var(--bg-2); border-radius: 20px 20px 0 0;
+  padding: 10px 18px 24px; position: relative;
+  animation: sheetSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes sheetSlideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.product-sheet-handle { width: 40px; height: 4px; background: var(--line); border-radius: 999px; margin: 6px auto 10px; }
+.product-sheet-close {
+  position: absolute; top: 12px; right: 14px; background: var(--bg); border: 1px solid var(--line-2);
+  border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 0.9rem; color: var(--ink-2);
+}
+
+.product-sheet-gallery { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; margin-bottom: 14px; }
+.gallery-slide {
+  flex: 0 0 85%; aspect-ratio: 3/4; border-radius: 12px; overflow: hidden;
+  background: var(--line-2); scroll-snap-align: start;
+}
+.gallery-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+.ps-brand { font-size: 0.75rem; font-weight: 700; color: var(--ink-3); text-transform: uppercase; margin: 0 0 2px; }
+.ps-title { font-size: 1.05rem; color: var(--ink); margin: 0 0 6px; line-height: 1.35; }
+.ps-rating { font-size: 0.82rem; color: var(--ink-2); margin-bottom: 8px; }
+.ps-price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px; }
+.ps-price { font-size: 1.2rem; font-weight: 700; color: var(--pink); }
+.ps-mrp { font-size: 0.85rem; color: var(--ink-3); text-decoration: line-through; }
+.ps-discount { font-size: 0.8rem; color: var(--ok); font-weight: 600; }
+.ps-meta { display: flex; gap: 14px; font-size: 0.8rem; color: var(--ink-3); margin-bottom: 14px; }
+
+.ps-size-row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.ps-size-label { font-size: 0.8rem; color: var(--ink-3); margin-right: 4px; }
+.ps-size-chip {
+  border: 1.5px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 8px;
+  width: 36px; height: 36px; cursor: pointer; font-size: 0.82rem; font-weight: 600;
+}
+.ps-size-chip.ps-size-selected { border-color: var(--pink); background: var(--pink); color: var(--bg); }
+
+.ps-why { font-size: 0.82rem; color: var(--ink-2); background: var(--accent-tint-2); border-radius: 10px; padding: 10px 12px; margin-bottom: 16px; }
+
+.ps-actions { margin-bottom: 18px; }
+.ps-remove-btn {
+  width: 100%; background: var(--bg); color: var(--err); border: 1.5px solid var(--err);
+  border-radius: 8px; padding: 12px; font-weight: 600; cursor: pointer; font-size: 0.9rem;
+}
+.ps-remove-btn:hover { background: var(--err-tint); }
+
+.ps-swap-label { font-size: 0.85rem; font-weight: 700; color: var(--ink); margin: 0 0 10px; }
+.ps-swap-loading, .ps-swap-empty { font-size: 0.82rem; color: var(--ink-3); padding: 10px 0; }
+.ps-swap-list { display: flex; flex-direction: column; gap: 8px; }
+.ps-swap-option {
+  display: flex; align-items: center; gap: 10px; text-align: left;
+  background: var(--bg); border: 1px solid var(--line-2); border-radius: 10px; padding: 8px;
+  cursor: pointer; font-family: inherit; transition: border-color 0.15s, background 0.15s;
+}
+.ps-swap-option:hover { border-color: var(--pink); background: var(--pink-tint); }
+.ps-swap-option:disabled { opacity: 0.5; cursor: not-allowed; }
+.ps-swap-option img { width: 44px; height: 56px; object-fit: cover; border-radius: 6px; }
+.ps-swap-option-info { flex: 1; min-width: 0; }
+.ps-swap-option-title {
+  font-size: 0.8rem; color: var(--ink); margin: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ps-swap-option-colour { font-size: 0.72rem; color: var(--ink-3); margin: 2px 0 0; }
+.ps-swap-delta { font-size: 0.78rem; font-weight: 700; flex-shrink: 0; }
+.ps-swap-delta.delta-up { color: var(--err); }
+.ps-swap-delta.delta-down { color: var(--ok); }
+.ps-swap-delta.delta-same { color: var(--ink-3); }
+
+/* ── Undo snackbar (Page 28) ────────────────────────────────────────────── */
+.undo-snackbar {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+  background: var(--ink); color: var(--bg); border-radius: 10px;
+  padding: 12px 16px; display: flex; align-items: center; gap: 16px;
+  font-size: 0.85rem; z-index: 60; box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  animation: snackbarUp 0.25s ease both;
+}
+@keyframes snackbarUp { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+.undo-snackbar button {
+  background: none; border: none; color: var(--pink); font-weight: 700; cursor: pointer; font-size: 0.85rem;
+}
+.modesty-dismiss-btn {
+  background: none; border: 1px solid var(--line); color: var(--ink-3); border-radius: 8px;
+  padding: 8px 12px; font-size: 0.8rem; cursor: pointer;
+}
+
+/* ── Skeleton cards during assembly (Page 26/37) ────────────────────────── */
+.skeleton-outfit-row { display: flex; gap: 12px; margin-bottom: 16px; overflow-x: auto; padding-bottom: 4px; }
+.skeleton-card {
+  flex: 0 0 150px; aspect-ratio: 3/4; border-radius: 12px;
+  background: linear-gradient(90deg, var(--line-2) 25%, var(--bg-3) 37%, var(--line-2) 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+@keyframes shimmer { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+
+/* One card per requested item type — resolves in place from skeleton to
+   the real product as its own shop() call lands, BEAT-paced (Section 5.2). */
+.shop-slot-card {
+  flex: 0 0 110px; display: flex; flex-direction: column; gap: 6px;
+  animation: fadeInSlot 0.3s ease both;
+}
+@keyframes fadeInSlot { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.shop-slot-card .skeleton-card { flex: none; width: 110px; }
+.shop-slot-img {
+  width: 110px; aspect-ratio: 3/4; object-fit: cover; border-radius: 12px;
+  animation: slotResolve 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes slotResolve { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: none; } }
+.shop-slot-fallback {
+  width: 110px; aspect-ratio: 3/4; border-radius: 12px; background: var(--bg-3);
+  display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+  animation: slotResolve 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.shop-slot-fallback-empty { color: var(--ink-3); font-size: 1.2rem; background: var(--pink-tint); }
+.shop-slot-label {
+  font-size: 0.72rem; color: var(--ink-2); text-align: center;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}

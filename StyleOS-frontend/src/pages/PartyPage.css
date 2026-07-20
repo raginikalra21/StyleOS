@@ -1,0 +1,110 @@
+.party-loading, .party-error {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 100vh; gap: 16px; color: var(--ink-3);
+}
+.spinner {
+  width: 36px; height: 36px; border: 3px solid var(--line-2); border-top-color: var(--pink);
+  border-radius: 50%; animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.party-join-screen {
+  display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px;
+}
+.party-join-card {
+  max-width: 340px; width: 100%; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.party-join-emoji { font-size: 2.6rem; }
+.party-join-card h2 { margin: 0; color: var(--ink); font-size: 1.4rem; }
+.party-join-card p { margin: 0 0 10px; color: var(--ink-2); font-size: 0.92rem; line-height: 1.5; }
+.party-join-card input, .party-join-card select {
+  width: 100%; border: 2px solid var(--line); border-radius: 10px; padding: 12px;
+  font-size: 0.95rem; outline: none; box-sizing: border-box; font-family: inherit;
+}
+.party-join-card input:focus, .party-join-card select:focus { border-color: var(--pink); }
+.party-join-card .btn-primary { width: 100%; margin-top: 4px; }
+
+.party-page { max-width: 480px; margin: 0 auto; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.party-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+.party-header h2 { margin: 0; color: var(--ink); font-size: 1.3rem; }
+.party-header span { color: var(--ink-3); font-size: 0.85rem; }
+
+.no-clash-banner {
+  background: var(--ok-tint); color: var(--ok); border-radius: 12px; padding: 12px 14px;
+  font-weight: 600; font-size: 0.88rem; margin-bottom: 16px; text-align: center;
+}
+
+/* ── Clash callout — the "fun to watch" moment: two real product photos ─
+   go head-to-head instead of a plain text banner. ─────────────────────── */
+.clash-callout {
+  background: linear-gradient(135deg, var(--err-tint), var(--bg));
+  border: 2px solid var(--err); border-radius: 16px; padding: 18px;
+  margin-bottom: 16px; text-align: center;
+  animation: clashIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes clashIn { from { opacity: 0; transform: scale(0.9) translateY(8px); } to { opacity: 1; transform: none; } }
+.clash-callout-header {
+  display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 14px;
+}
+.clash-callout-title { font-size: 1.05rem; font-weight: 800; color: var(--err); letter-spacing: 0.02em; }
+.clash-siren { font-size: 1.2rem; display: inline-block; animation: sirenWobble 0.6s ease-in-out infinite; }
+.clash-siren:last-child { animation-delay: 0.3s; }
+@keyframes sirenWobble { 0%, 100% { transform: rotate(-12deg); } 50% { transform: rotate(12deg); } }
+
+.clash-vs-card {
+  display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 10px;
+}
+.clash-vs-side { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.clash-vs-img {
+  width: 84px; height: 100px; object-fit: cover; border-radius: 12px;
+  border: 3px solid var(--err); box-shadow: 0 6px 18px rgba(220, 38, 38, 0.25);
+  animation: clashPulse 1.4s ease-in-out infinite;
+}
+@keyframes clashPulse {
+  0%, 100% { box-shadow: 0 6px 18px rgba(220, 38, 38, 0.25); }
+  50% { box-shadow: 0 6px 24px rgba(220, 38, 38, 0.55); }
+}
+.clash-vs-name { font-size: 0.82rem; font-weight: 700; color: var(--ink); }
+.clash-vs-bolt { font-size: 1.6rem; flex-shrink: 0; }
+.clash-callout-detail { margin: 0; font-size: 0.86rem; color: var(--ink-2); }
+
+.party-roster-label { font-size: 0.8rem; font-weight: 700; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.03em; margin: 0 0 8px; }
+.party-roster { margin-bottom: 24px; }
+.party-member-card { padding: 10px 0; border-bottom: 1px solid var(--line-2); }
+.party-member-row {
+  display: flex; align-items: center; gap: 10px;
+}
+.party-member-avatar {
+  width: 30px; height: 30px; border-radius: 50%; background: var(--pink); color: var(--bg);
+  font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.party-member-name { flex: 1; font-weight: 600; color: var(--ink); font-size: 0.9rem; }
+.party-member-status { font-size: 0.78rem; color: var(--ink-3); }
+
+.party-member-items {
+  display: flex; gap: 8px; margin-top: 10px; padding-left: 40px;
+  overflow-x: auto; scrollbar-width: none;
+}
+.party-member-items::-webkit-scrollbar { display: none; }
+.party-item-thumb {
+  position: relative; flex-shrink: 0; width: 56px; display: flex; flex-direction: column; align-items: center; gap: 3px;
+}
+.party-item-thumb img {
+  width: 56px; height: 68px; object-fit: cover; border-radius: 8px; border: 2px solid var(--line-2);
+}
+.party-item-thumb.is-clash img {
+  border-color: var(--err); animation: clashPulse 1.4s ease-in-out infinite;
+}
+.party-item-clash-badge {
+  position: absolute; top: -8px; right: -4px; font-size: 0.95rem; z-index: 1;
+  animation: sirenWobble 0.6s ease-in-out infinite;
+}
+.party-item-price { font-size: 0.68rem; color: var(--ink-3); font-weight: 600; }
+
+.party-my-cart select {
+  width: 100%; border: 2px solid var(--line); border-radius: 8px; padding: 10px 12px;
+  font-size: 0.9rem; outline: none; box-sizing: border-box;
+}
+.party-my-cart select:focus { border-color: var(--pink); }
+.party-no-carts { color: var(--ink-3); font-size: 0.85rem; }

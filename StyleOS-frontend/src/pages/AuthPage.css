@@ -1,0 +1,107 @@
+.auth-page {
+  min-height: 100vh;
+  background: var(--bg-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.auth-card {
+  background: white;
+  border-radius: 12px;
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+}
+
+.auth-logo { text-align: center; margin-bottom: 24px; }
+.auth-logo-text {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--pink);
+  letter-spacing: -0.02em;
+}
+
+.auth-card h2 {
+  margin: 0 0 4px;
+  font-size: 1.4rem;
+  color: var(--ink);
+  text-align: center;
+}
+
+.auth-sub {
+  text-align: center;
+  color: var(--ink-3);
+  font-size: 0.9rem;
+  margin: 0 0 24px;
+}
+
+.auth-error {
+  background: var(--pink-tint);
+  color: var(--err);
+  border: 1px solid var(--err-tint);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.form-group input {
+  width: 100%;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.form-group input:focus { border-color: var(--pink); }
+
+.auth-btn {
+  width: 100%;
+  background: var(--pink);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 13px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+
+.auth-btn:hover { background: var(--pink-dark); }
+.auth-btn:disabled { background: var(--line); cursor: not-allowed; }
+
+.auth-switch {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+
+.auth-switch a {
+  color: var(--pink);
+  text-decoration: none;
+  font-weight: 600;
+}

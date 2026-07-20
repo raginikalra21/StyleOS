@@ -1,0 +1,779 @@
+.collab-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Header */
+.collab-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line-2);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
+}
+.collab-back {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--ink);
+  padding: 0;
+  line-height: 1;
+}
+.collab-title { flex: 1; }
+.collab-title h2 { margin: 0; font-size: 1rem; color: var(--ink); }
+.collab-title span { font-size: 0.8rem; color: var(--ink-3); }
+.collab-members { display: flex; gap: -4px; }
+.member-avatar {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--pink);
+  color: var(--bg);
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--bg);
+  margin-left: -4px;
+}
+
+/* Product card */
+.collab-product-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+/* A swap landing live on a reviewer's screen — cross-fade + a brief pink
+   ring so the change reads as "something just happened here", not a
+   silent re-render. */
+.item-swapped-flash .collab-image-area {
+  animation: itemSwapFlash 1.4s ease;
+}
+.item-swapped-flash .collab-product-image {
+  animation: itemSwapFade 0.5s ease;
+}
+@keyframes itemSwapFlash {
+  0% { box-shadow: inset 0 0 0 4px var(--pink); }
+  70% { box-shadow: inset 0 0 0 4px var(--pink); }
+  100% { box-shadow: inset 0 0 0 0px transparent; }
+}
+@keyframes itemSwapFade {
+  0% { opacity: 0; transform: scale(1.03); }
+  100% { opacity: 1; transform: none; }
+}
+
+.collab-image-area {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: var(--bg-3);
+  overflow: hidden;
+}
+.collab-product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.collab-no-image {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  color: var(--line); font-size: 3rem;
+}
+.collab-no-image p { font-size: 0.9rem; margin: 8px 0 0; color: var(--ink-3); }
+
+.image-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  transition: background 0.2s;
+}
+.dot.active { background: var(--bg); }
+
+.price-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0,0,0,0.7);
+  color: var(--bg);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.original-price { font-size: 0.75rem; text-decoration: line-through; opacity: 0.7; }
+
+.product-counter {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(0,0,0,0.5);
+  color: var(--bg);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+/* Product info */
+.collab-product-info {
+  padding: 14px 16px 8px;
+  border-bottom: 1px solid var(--bg-3);
+}
+.product-brand { margin: 0; font-size: 0.8rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.05em; }
+.product-title { margin: 4px 0 8px; font-size: 1rem; color: var(--ink); font-weight: 500; }
+.product-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.tag {
+  background: var(--bg-3);
+  color: var(--ink-2);
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+.view-product-btn {
+  background: none;
+  border: 1px solid var(--pink);
+  color: var(--pink);
+  border-radius: 6px;
+  padding: 7px 14px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Reactions */
+.collab-reactions { padding: 12px 16px; }
+.reaction-buttons { display: flex; gap: 10px; margin-bottom: 10px; }
+.reaction-btn {
+  flex: 1;
+  background: var(--bg-3);
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 6px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.reaction-btn.active { background: var(--pink-tint); border-color: var(--pink); }
+.reaction-btn.voice-btn { font-size: 1.4rem; }
+.reaction-btn.recording { background: var(--pink-tint); border-color: var(--err); animation: pulse 0.8s infinite; }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+.comment-row { display: flex; gap: 8px; }
+.comment-input {
+  flex: 1;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  outline: none;
+}
+.comment-input:focus { border-color: var(--pink); }
+.comment-send {
+  background: var(--pink);
+  color: var(--bg);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.reactions-list { margin-top: 8px; }
+.reaction-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  font-size: 0.85rem;
+}
+.reaction-user { font-weight: 600; color: var(--ink); }
+.reaction-content { color: var(--ink-2); }
+
+/* Swipe hints */
+.swipe-hints { position: relative; }
+.hint-top, .hint-bottom {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  padding: 4px;
+}
+
+/* Bottom bar */
+.collab-bottom-bar {
+  padding: 12px 16px;
+  border-top: 1px solid var(--line-2);
+  background: var(--bg);
+  position: sticky;
+  bottom: 56px;
+}
+.reconcile-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--pink), var(--warn));
+  color: var(--bg);
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.reconcile-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.reconcile-result {
+  text-align: center;
+  color: var(--ok);
+  font-weight: 600;
+  padding: 8px;
+  background: var(--ok-tint);
+  border-radius: 8px;
+}
+
+/* Product strip */
+.product-strip {
+  display: flex;
+  gap: 6px;
+  padding: 10px 16px;
+  overflow-x: auto;
+  border-top: 1px solid var(--line-2);
+  background: var(--bg);
+  position: sticky;
+  bottom: 0;
+}
+.strip-item {
+  flex-shrink: 0;
+  width: 44px; height: 44px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--bg-3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  transition: border-color 0.15s;
+  padding: 0;
+}
+.strip-item.active { border-color: var(--pink); }
+.strip-item img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Loading / error */
+.collab-loading, .collab-error {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 100vh; gap: 16px; color: var(--ink-3);
+}
+.spinner {
+  width: 36px; height: 36px;
+  border: 3px solid var(--line-2);
+  border-top-color: var(--pink);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Zero-friction join (Section 3.2) — "Who's this?" ────────────────── */
+.collab-join-screen {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh; padding: 24px;
+}
+.collab-join-card {
+  max-width: 340px; width: 100%; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.collab-join-emoji { font-size: 2.6rem; }
+.collab-join-card h2 { margin: 0; color: var(--ink); font-size: 1.4rem; }
+.collab-join-card p { margin: 0 0 10px; color: var(--ink-2); font-size: 0.92rem; line-height: 1.5; }
+.collab-join-input {
+  width: 100%; border: 2px solid var(--line); border-radius: 10px;
+  padding: 14px; font-size: 1rem; outline: none; box-sizing: border-box;
+  text-align: center; font-family: inherit;
+}
+.collab-join-input:focus { border-color: var(--pink); }
+.collab-join-card .btn-primary { width: 100%; margin-top: 4px; }
+.collab-join-alt {
+  background: none; border: none; color: var(--ink-3); font-size: 0.82rem;
+  cursor: pointer; text-decoration: underline; margin-top: 6px;
+}
+
+/* ── Presence — "Mom is looking..." ───────────────────────────────────── */
+.collab-presence {
+  padding: 8px 16px; font-size: 0.82rem; color: var(--accent-dark);
+  background: var(--accent-tint); text-align: center; animation: fadeInPresence 0.3s ease;
+}
+@keyframes fadeInPresence { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── Rejection reason chips — feeds convergence.js directly ─────────── */
+.reject-reason-row {
+  background: var(--bg-3); border: 1.5px solid var(--line);
+  border-radius: 10px; padding: 12px; margin-bottom: 10px;
+  animation: fadeInPresence 0.2s ease;
+}
+.reject-reason-label { margin: 0 0 8px; font-size: 0.85rem; font-weight: 600; color: var(--ink); }
+.reject-reason-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.reject-reason-chip {
+  background: var(--bg); border: 1.5px solid var(--pink); color: var(--pink);
+  border-radius: 20px; padding: 7px 14px; font-size: 0.82rem; font-weight: 600;
+  cursor: pointer; transition: background 0.15s, color 0.15s;
+}
+.reject-reason-chip:hover { background: var(--pink); color: var(--bg); }
+.reject-reason-cancel {
+  background: none; border: none; color: var(--ink-3); font-size: 0.8rem;
+  cursor: pointer; margin-top: 8px; display: block; width: 100%; text-align: center;
+}
+
+.collab-async-note {
+  text-align: center; font-size: 0.76rem; color: var(--ink-3);
+  padding: 10px 24px 20px; margin: 0; line-height: 1.4;
+}
+
+/* ── Five Modes (collab_cart_five_modes.md) ──────────────────────────── */
+.approver-card, .proxy-card {
+  margin: 16px; padding: 24px 20px; text-align: center;
+  background: var(--bg); border: 2px solid var(--pink); border-radius: 16px;
+  animation: fadeInPresence 0.3s ease;
+}
+.approver-emoji, .proxy-emoji { font-size: 2rem; display: block; margin-bottom: 8px; }
+.approver-card h2 { font-size: 1.3rem; color: var(--ink); margin: 0 0 4px; }
+.approver-sub, .proxy-sub { font-size: 0.85rem; color: var(--ink-2); margin: 0 0 18px; }
+.approver-locked { background: var(--ok-tint); border-radius: 10px; padding: 14px; color: var(--ok); font-weight: 700; }
+.approver-cap { font-size: 0.82rem; font-weight: 500; margin-top: 4px; }
+.approver-actions, .approver-too-much { display: flex; gap: 10px; }
+.approver-actions button, .approver-too-much button { flex: 1; }
+.approver-too-much input {
+  flex: 2; border: 2px solid var(--line); border-radius: 10px; padding: 12px; font-size: 1rem; outline: none;
+}
+.approver-too-much input:focus { border-color: var(--pink); }
+
+.proxy-card { text-align: left; }
+.proxy-card h2 { text-align: center; font-size: 1.2rem; color: var(--ink); margin: 0 0 4px; }
+.proxy-card input {
+  width: 100%; border: 2px solid var(--line); border-radius: 8px; padding: 10px 12px;
+  font-size: 0.88rem; margin-bottom: 10px; outline: none; box-sizing: border-box;
+}
+.proxy-card input:focus { border-color: var(--pink); }
+.proxy-card .btn-primary { width: 100%; margin-top: 4px; }
+.proxy-skip {
+  display: block; width: 100%; text-align: center; background: none; border: none;
+  color: var(--ink-3); font-size: 0.8rem; margin-top: 10px; cursor: pointer; text-decoration: underline;
+}
+
+.vote-btn { font-size: 1.3rem; }
+.vote-panel {
+  background: var(--bg-3); border: 1.5px solid var(--line); border-radius: 10px;
+  padding: 12px; margin-bottom: 10px; animation: fadeInPresence 0.2s ease;
+}
+.vote-label { font-size: 0.85rem; font-weight: 700; color: var(--ink); margin: 0 0 10px; }
+.vote-options { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; }
+.vote-option {
+  flex: 0 0 110px; display: flex; flex-direction: column; gap: 4px;
+  background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px;
+  padding: 8px; cursor: pointer; text-align: left;
+}
+.vote-option:hover { border-color: var(--pink); }
+.vote-option img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 6px; }
+.vote-option-title {
+  font-size: 0.72rem; color: var(--ink); overflow: hidden; text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vote-option-price { font-size: 0.78rem; font-weight: 700; color: var(--ink); }
+.vote-bar-wrap { position: relative; height: 6px; background: var(--line-2); border-radius: 3px; margin-top: 2px; }
+.vote-bar { position: absolute; left: 0; top: 0; height: 100%; background: var(--pink); border-radius: 3px; }
+.vote-count { font-size: 0.68rem; color: var(--ink-3); display: block; margin-top: 2px; }
+.vote-close {
+  display: block; margin-top: 10px; background: none; border: none; color: var(--ink-3);
+  font-size: 0.78rem; cursor: pointer; text-decoration: underline;
+}
+
+/* Demo Assist floating drawer widget */
+.demo-assist-widget {
+  position: fixed;
+  bottom: 120px;
+  right: 20px;
+  background: rgba(22, 24, 33, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(236, 72, 153, 0.6);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.35);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 220px;
+}
+
+.demo-assist-title {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #ec4899;
+  letter-spacing: 0.1em;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+}
+
+.demo-assist-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.demo-assist-buttons button {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.demo-assist-buttons button:hover {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  border-color: transparent;
+  transform: translateY(-1px);
+}
+
+/* ── Co-presence ladder (Tiers 1-4, 6) ───────────────────────────────── */
+
+/* Tier rail — presenter/follow, ask-to-help, spotlight, chat, timeline */
+.live-action-rail {
+  display: flex; gap: 8px; padding: 8px 16px; overflow-x: auto;
+  border-bottom: 1px solid var(--line-2);
+}
+.live-rail-btn {
+  flex-shrink: 0; position: relative;
+  background: var(--bg-3); border: 1.5px solid var(--line);
+  color: var(--ink-2); border-radius: 20px; padding: 6px 12px;
+  font-size: 0.78rem; font-weight: 600; cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.live-rail-btn:hover { border-color: var(--pink); color: var(--pink); }
+.live-rail-btn.active { background: var(--pink); border-color: var(--pink); color: #fff; }
+.chat-unread-dot {
+  position: absolute; top: -4px; right: -4px;
+  background: var(--pink); color: #fff; border-radius: 999px;
+  font-size: 0.62rem; font-weight: 700; min-width: 16px; height: 16px;
+  display: flex; align-items: center; justify-content: center; padding: 0 3px;
+}
+
+/* Tier 3 — presenter banner */
+.presenter-banner {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 8px 16px; font-size: 0.82rem; color: var(--accent-dark);
+  background: var(--accent-tint); animation: fadeInPresence 0.3s ease;
+}
+.presenter-follow-btn {
+  background: var(--bg); border: 1.5px solid var(--accent-dark); color: var(--accent-dark);
+  border-radius: 20px; padding: 5px 12px; font-size: 0.76rem; font-weight: 700; cursor: pointer;
+}
+
+/* Tier 4 — control request/status banners */
+.control-request-banner {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 10px 16px; font-size: 0.85rem; color: var(--ink); font-weight: 600;
+  background: var(--pink-tint); animation: fadeInPresence 0.3s ease;
+}
+.control-request-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.control-request-actions button {
+  border-radius: 16px; padding: 5px 12px; font-size: 0.76rem; font-weight: 700; cursor: pointer;
+}
+.control-status-banner {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 8px 16px; font-size: 0.82rem; color: var(--ink-2);
+  background: var(--bg-3); border-bottom: 1px solid var(--line-2);
+}
+.control-status-banner.mine { color: var(--ok); background: var(--ok-tint); font-weight: 700; }
+.control-revoke-btn {
+  background: none; border: 1.5px solid currentColor; color: inherit;
+  border-radius: 16px; padding: 4px 10px; font-size: 0.74rem; font-weight: 700; cursor: pointer;
+}
+
+/* Tier 3 — spotlight */
+.spotlight-toast {
+  padding: 8px 16px; font-size: 0.82rem; font-weight: 600; color: #fff;
+  background: var(--pink); text-align: center; animation: fadeInPresence 0.3s ease;
+}
+.item-spotlit .collab-image-area {
+  box-shadow: inset 0 0 0 4px var(--pink);
+  animation: spotlightPulse 1.6s ease-in-out infinite;
+}
+@keyframes spotlightPulse {
+  0%, 100% { box-shadow: inset 0 0 0 4px var(--pink); }
+  50% { box-shadow: inset 0 0 0 2px var(--pink); }
+}
+
+/* Tier 1 — live cursors + "viewing this" avatars, live inside the image area */
+.live-cursor-dot {
+  position: absolute; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--pink); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  transform: translate(-50%, -50%); z-index: 5; pointer-events: none;
+  transition: left 0.08s linear, top 0.08s linear;
+}
+.live-cursor-label {
+  position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+  background: var(--pink); color: #fff; font-size: 0.68rem; font-weight: 700;
+  padding: 2px 6px; border-radius: 8px; white-space: nowrap;
+}
+.viewing-badge-row {
+  position: absolute; top: 10px; left: 10px; z-index: 5;
+  display: flex; gap: -4px;
+}
+.viewing-badge {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--accent-dark); color: #fff; font-size: 0.66rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid #fff; margin-left: -6px; box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+
+/* Tier 2 — floating emoji bursts + quick-react bar */
+.emoji-burst {
+  position: absolute; bottom: 20%; font-size: 1.6rem; z-index: 6;
+  pointer-events: none; animation: emojiBurstRise 1.8s ease-out forwards;
+}
+@keyframes emojiBurstRise {
+  0% { opacity: 0; transform: translateY(0) scale(0.6); }
+  15% { opacity: 1; transform: translateY(-10px) scale(1.1); }
+  100% { opacity: 0; transform: translateY(-140px) scale(1); }
+}
+.emoji-burst-bar { display: flex; gap: 6px; padding: 4px 0 8px; }
+.emoji-burst-btn {
+  background: var(--bg-3); border: 1px solid var(--line); border-radius: 999px;
+  font-size: 1.1rem; padding: 4px 10px; cursor: pointer; transition: transform 0.1s;
+}
+.emoji-burst-btn:active { transform: scale(1.2); }
+
+/* Tier 1 — read receipts + typing indicator */
+.read-receipt-line { font-size: 0.72rem; color: var(--ink-3); margin: 0 0 6px; }
+.typing-indicator-line { font-size: 0.76rem; color: var(--accent-dark); margin: 4px 0 0; font-style: italic; }
+
+/* Tier 4 — co-editing swap panel */
+.control-swap-panel {
+  background: var(--ok-tint); border: 1.5px solid var(--ok); border-radius: 10px;
+  padding: 12px; margin: 8px 0; animation: fadeInPresence 0.2s ease;
+}
+.control-swap-panel > .btn-primary { width: 100%; }
+.control-swap-label { margin: 0 0 8px; font-size: 0.82rem; font-weight: 700; color: var(--ink); }
+.control-swap-options { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.control-swap-empty { font-size: 0.8rem; color: var(--ink-3); }
+.control-swap-option {
+  flex-shrink: 0; width: 96px; background: var(--bg); border: 1.5px solid var(--line);
+  border-radius: 10px; padding: 6px; cursor: pointer; text-align: left;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.control-swap-option img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 6px; }
+.control-swap-option span { font-size: 0.7rem; color: var(--ink-2); line-height: 1.3; }
+.control-swap-price { font-weight: 700; color: var(--ink); }
+.control-swap-cancel {
+  background: none; border: none; color: var(--ink-3); font-size: 0.78rem;
+  cursor: pointer; margin-top: 6px; display: block; width: 100%; text-align: center;
+}
+
+/* Tier 2 — scoped chat panel */
+.chat-panel {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 480px; height: 60vh; max-height: 520px;
+  background: var(--bg); border-top: 1.5px solid var(--line); border-radius: 16px 16px 0 0;
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.15); z-index: 60;
+  display: flex; flex-direction: column; animation: chatPanelUp 0.25s ease;
+}
+@keyframes chatPanelUp { from { transform: translate(-50%, 100%); } to { transform: translate(-50%, 0); } }
+.chat-panel-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 16px; border-bottom: 1px solid var(--line-2); font-weight: 700; color: var(--ink);
+}
+.chat-panel-header button { background: none; border: none; font-size: 1.1rem; cursor: pointer; color: var(--ink-3); }
+.chat-panel-messages { flex: 1; overflow-y: auto; padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
+.chat-empty { color: var(--ink-3); font-size: 0.82rem; text-align: center; margin-top: 20px; }
+.chat-message {
+  align-self: flex-start; max-width: 80%; background: var(--bg-3);
+  border-radius: 12px 12px 12px 4px; padding: 6px 10px;
+}
+.chat-message.mine {
+  align-self: flex-end; background: var(--pink-tint); border-radius: 12px 12px 4px 12px;
+}
+.chat-message-name { display: block; font-size: 0.68rem; font-weight: 700; color: var(--accent-dark); }
+.chat-message-text { font-size: 0.85rem; color: var(--ink); }
+.chat-panel-input { display: flex; gap: 8px; padding: 10px 16px; border-top: 1px solid var(--line-2); }
+.chat-panel-input input {
+  flex: 1; border: 1.5px solid var(--line); border-radius: 20px; padding: 8px 14px; font-size: 0.85rem;
+}
+.chat-panel-input button {
+  background: var(--pink); color: #fff; border: none; border-radius: 20px;
+  padding: 8px 16px; font-weight: 700; font-size: 0.82rem; cursor: pointer;
+}
+
+/* Tier 6 — session timeline */
+.timeline-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 70;
+  display: flex; align-items: flex-end; justify-content: center;
+}
+.timeline-panel {
+  width: 100%; max-width: 480px; max-height: 75vh; background: var(--bg);
+  border-radius: 16px 16px 0 0; padding: 16px; overflow-y: auto;
+  animation: chatPanelUp 0.25s ease;
+}
+.timeline-panel-header {
+  display: flex; justify-content: space-between; align-items: center;
+  font-weight: 700; color: var(--ink); margin-bottom: 12px;
+}
+.timeline-panel-header button { background: none; border: none; font-size: 1.1rem; cursor: pointer; color: var(--ink-3); }
+.timeline-loading, .timeline-empty { color: var(--ink-3); font-size: 0.85rem; text-align: center; padding: 20px 0; }
+.timeline-list { display: flex; flex-direction: column; gap: 12px; }
+.timeline-item { display: flex; gap: 10px; align-items: flex-start; }
+.timeline-dot {
+  width: 28px; height: 28px; border-radius: 50%; background: var(--bg-3);
+  display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0;
+}
+.timeline-item-body { flex: 1; }
+.timeline-item-line { margin: 0; font-size: 0.85rem; color: var(--ink); line-height: 1.4; }
+.timeline-item-time { font-size: 0.7rem; color: var(--ink-3); }
+.timeline-resume-note { font-size: 0.76rem; color: var(--ink-3); text-align: center; margin: 16px 0 10px; }
+.timeline-checkout-btn { width: 100%; }
+
+/* ── Collab Cart Complete Session UX Spec — presence bar, sharing
+   controls, joiner controls, session end, celebration ─────────────────── */
+
+/* §3a — the live top bar */
+.presence-bar {
+  display: flex; align-items: center; gap: 10px; padding: 10px 16px;
+  border-bottom: 1px solid var(--line-2);
+}
+.presence-live-dot {
+  font-size: 0.72rem; font-weight: 700; color: var(--err);
+  animation: livePulse 1.6s ease-in-out infinite;
+}
+@keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+.presence-avatars { display: flex; gap: 0; flex: 1; align-items: center; }
+.presence-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent-dark); color: #fff; font-size: 0.72rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--bg); margin-left: -6px;
+}
+.presence-avatar:first-child { margin-left: 0; }
+.presence-empty { font-size: 0.78rem; color: var(--ink-3); }
+.presence-end-btn {
+  background: none; border: 1.5px solid var(--err); color: var(--err);
+  border-radius: 14px; padding: 4px 10px; font-size: 0.74rem; font-weight: 700; cursor: pointer;
+}
+
+/* §3c/§4b — sharing controls (owner) and joiner request controls */
+.sharing-controls-panel, .joiner-controls-panel {
+  margin: 12px 16px; padding: 14px; background: var(--bg-3);
+  border: 1.5px solid var(--line); border-radius: 14px;
+}
+.sharing-controls-title { margin: 0 0 10px; font-size: 0.82rem; font-weight: 700; color: var(--ink); }
+.sharing-controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sharing-control-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px;
+  padding: 12px 8px; font-size: 0.76rem; font-weight: 600; color: var(--ink-2); cursor: pointer;
+  text-align: center;
+}
+.sharing-control-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.sharing-control-btn.active { background: var(--pink); border-color: var(--pink); color: #fff; }
+.sharing-control-emoji { font-size: 1.3rem; }
+.sharing-controls-note { margin: 10px 0 0; font-size: 0.78rem; color: var(--ink-2); text-align: center; }
+
+.joiner-controls-panel { display: flex; flex-direction: column; gap: 10px; }
+.joiner-request-btn { flex-direction: row; justify-content: center; padding: 12px; }
+.joiner-following-banner, .joiner-controlling-banner {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  background: var(--accent-tint); color: var(--accent-dark); border-radius: 10px;
+  padding: 10px 12px; font-size: 0.82rem; font-weight: 600;
+}
+.joiner-following-banner button, .joiner-controlling-banner button {
+  background: var(--bg); border: 1.5px solid currentColor; color: inherit;
+  border-radius: 14px; padding: 5px 12px; font-size: 0.76rem; font-weight: 700; cursor: pointer;
+  flex-shrink: 0;
+}
+.joiner-controlled-note { margin: 0; font-size: 0.8rem; color: var(--ink-2); text-align: center; }
+
+/* Direct-grant member picker (owner picks who gets control) */
+.member-picker { margin-top: 10px; border-top: 1px solid var(--line-2); padding-top: 10px; }
+.member-picker-label { margin: 0 0 8px; font-size: 0.8rem; font-weight: 700; color: var(--ink); }
+.member-picker-empty { font-size: 0.78rem; color: var(--ink-3); margin: 0; }
+.member-picker-row {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px;
+  padding: 8px 12px; margin-bottom: 6px; cursor: pointer; font-size: 0.85rem; color: var(--ink);
+}
+.member-picker-avatar {
+  width: 24px; height: 24px; border-radius: 50%; background: var(--accent-dark); color: #fff;
+  font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center;
+}
+.member-picker-grant { margin-left: auto; color: var(--pink); font-weight: 700; font-size: 0.78rem; }
+.member-picker-cancel {
+  background: none; border: none; color: var(--ink-3); font-size: 0.78rem;
+  cursor: pointer; display: block; width: 100%; text-align: center; margin-top: 4px;
+}
+
+/* Leave toast — mirrors .join-toast in Mission.css */
+.leave-toast {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+  background: var(--ink-2); color: #fff; border-radius: 30px;
+  padding: 10px 20px; font-size: 0.85rem; font-weight: 700;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  z-index: 200; animation: joinToastPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Session end screen */
+.session-end-screen {
+  min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 40px 24px; max-width: 480px; margin: 0 auto;
+}
+.session-end-emoji { font-size: 3rem; margin-bottom: 12px; }
+.session-end-screen h2 { margin: 0 0 8px; color: var(--ink); font-size: 1.2rem; }
+.session-end-screen p { color: var(--ink-3); font-size: 0.88rem; margin: 0 0 24px; line-height: 1.5; }
+
+/* §5 — "everyone agreed" celebration */
+.celebration-burst {
+  position: fixed; inset: 0; z-index: 90; pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+}
+.celebration-piece {
+  position: absolute; top: -10%; font-size: 2rem;
+  animation: celebrationFall 2.4s ease-in forwards;
+}
+@keyframes celebrationFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(340deg); opacity: 0; }
+}
+.celebration-message {
+  background: var(--pink); color: #fff; font-weight: 700; font-size: 1rem;
+  padding: 12px 24px; border-radius: 30px; box-shadow: 0 8px 24px rgba(255, 63, 108, 0.4);
+  animation: celebrationPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes celebrationPop {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+

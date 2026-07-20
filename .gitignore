@@ -1,0 +1,45 @@
+# dependencies
+node_modules/
+**/node_modules/
+
+# environment — real secrets live here, never commit
+.env
+.env.local
+.env.*.local
+**/.env
+**/.env.local
+**/.env.*.local
+
+# build output
+build/
+dist/
+.next/
+**/build/
+**/.next/
+
+# data pipeline — raw datasets and generated backups are huge and not code
+data-pipeline/raw/
+data-pipeline/backups/
+data-pipeline/__pycache__/
+**/__pycache__/
+*.pyc
+
+# logs
+npm-debug.log*
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/
+.idea/
+
+# scratch/temp files from local testing sessions
+tmp/
+
+# generated presentation assets (not project code)
+StyleOS_Project_Documentation.pdf
+StyleOS_OnePager.pdf
+StyleOS_OnePager_Banner.png

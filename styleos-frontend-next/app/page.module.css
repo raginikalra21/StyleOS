@@ -1,0 +1,48 @@
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+}
+
+.hero {
+  text-align: center;
+  background: linear-gradient(135deg, var(--pink-tint), var(--accent-tint));
+  border: 2px solid var(--pink);
+  border-radius: var(--radius-lg);
+  padding: 48px 24px;
+  margin-bottom: 40px;
+}
+.hero h1 {
+  font-size: 1.9rem;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.hero p {
+  color: var(--ink-2);
+  margin: 0 0 20px;
+}
+.heroCta {
+  display: inline-block;
+  background: var(--pink);
+  color: var(--bg);
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+}
+.heroCta:hover {
+  background: var(--pink-dark);
+}
+
+.section {
+  margin-bottom: 40px;
+}
+.section h2 {
+  font-size: 1.2rem;
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
