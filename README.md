@@ -4,7 +4,7 @@ A goal-based AI stylist for Myntra-style shopping. Describe a life goal in plain
 
 **"Two minutes. One goal. No browsing."**
 
-🔗 **Live:** [your-deployment-url.vercel.app](#) &nbsp;·&nbsp; **API:** [your-api.onrender.com](#)
+🔗 **Live:** [[your-deployment-url.vercel.app](https://styleos-frontend.vercel.app/)](#) &nbsp;·&nbsp; **API:** [your-api.onrender.com](#)
 
 ---
 
