@@ -51,4 +51,4 @@ python seed_ethnic_manual.py
 
 ## Team
 
-Built by [Your Name] &amp; Hiyanshi, mentored by Abhinav Mishra.
+Built by Ragini Kalra &amp; Hiyanshi, mentored by Abhinav Mishra.
