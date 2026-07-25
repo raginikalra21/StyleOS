@@ -4,7 +4,7 @@ I built this for Myntra's WeForShe HackerRamp because I was tired of watching ho
 
 **"Two minutes. One goal. No browsing."**
 
-🔗 **Live:** [StyleOS](https://styleos-frontend.vercel.app/) &nbsp;·&nbsp; 
+🔗 **Live:** [StyleOS](https://styleos-frontend.vercel.app/) &nbsp;·&nbsp; 🔗 **API:** [backend]([https://styleos-backend.onrender.com]) &nbsp;·&nbsp; 
 
 ---
 
